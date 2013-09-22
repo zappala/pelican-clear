@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+  {% assets filters="less", output="css/style.css", "css/style.less" %}
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ ASSET_URL }}">
+  {% endassets %}
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/pygments.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/theme/css/responsive-nav.css">
+  <script src="{{ SITEURL }}/theme/js/responsive-nav.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="{{ AUTHOR }}">
+  <meta name="description" content="Posts and writings by {{ AUTHOR }}">
+
+  {% if FEED_ALL_ATOM %}
+  <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
+  {% endif %}
+  {% if FEED_ALL_RSS %}
+  <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Full RSS Feed" />
+  {% endif %}
+
+  {% block head %}
+  {% endblock %}
+
+  <title>
+    {% block title %}{{ SITENAME }}{% endblock %}
+  </title>
+
+  {% include "analytics.html" %}
+</head>
+
+<body>
+  <main>
+    <header>
+      {% block header %}
+      <nav>
+      <ul>
+        {% for p in pages|sort(attribute='order') %}
+        <li><a href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a><span class="separator">&nbsp;&bull;&nbsp;</span></li>
+        {% endfor %}
+      <li><a href="{{ SITEURL }}/blog/index.html">Blog</a><span class="separator">&nbsp;&bull;&nbsp;</span></li>
+      <li><a href="{{ SITEURL }}/archives.html">Archives</a></li>
+      </ul>
+      </nav>
+      {% endblock header %}
+      <div id="name">
+      {{ SITENAME }}
+      </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer>
+      {% block footer %}
+      {% endblock %}
+    </footer>
+
+  </main>
+  <aside>
+    <div id="user_meta">
+      <h2><a href="{{ SITEURL }}">{{ AUTHOR }}</a></h2>
+      <p class="tagline">{{ TAGLINE }}</p>
+      <h4>{{ AFFILIATION }}</h4>
+      <p class="linklabel">
+      {% if LINKS %}
+      {{ LINKS_LABEL}}
+      </p>
+      <ul>
+        {% for name, link in LINKS %}
+        <li><a href="{{ link }}" target="_blank">{{ name }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <hr>
+      {% if USER_LOGO_URL %}
+      <img class="logo" src="{{ USER_LOGO_URL }}" alt="logo">
+      {% else %}
+      <img class="social" src="{{ SITEURL }}/theme/images/logo.png" alt="logo">
+      {% endif %}
+      <br class="clear">
+      {% if GITHUB_URL %}
+      <a href="{{GITHUB_URL}}"><img class="social" src="{{ SITEURL }}/theme/images/github.png" alt="github"></a>
+      {% endif %}
+      {% if GOOGLEPLUS_URL %}
+      <a href="{{GOOGLEPLUS_URL}}"><img class="social" src="{{ SITEURL }}/theme/images/gplus.png" alt="googleplus"></a>
+      {% endif %}
+      {% if TWITTER_URL %}
+      <a href="{{TWITTER_URL}}"><img class="social" src="{{ SITEURL }}/theme/images/twitter.png" alt="twitter"></a>
+      {% endif %}
+      {% if LINKEDIN_URL %}
+      <a href="{{LINKEDIN_URL}}"><img class="social" src="{{ SITEURL }}/theme/images/linkedin.png" alt="linkedin"></a>
+      {% endif %}
+      {% if FEED_ALL_ATOM %}
+      <a href="{{ FEED_DOMAIN }}/{{ FEED_ALL_ATOM }}"><img class="social" src="{{ SITEURL }}/theme/images/atom.png" alt="atom"></a>
+      {% endif %}
+      {% if EMAIL %}
+      <p>{{ EMAIL }}</p>
+      {% endif %}
+      {% if ADDRESS %}
+      <p>{{ ADDRESS }}</p>
+      {% endif %}
+      {% if PHONE %}
+      <p>{{ PHONE }}</p>
+      {% endif %}
+      <hr>
+      {% if LICENSE %}
+      {{ LICENSE }}
+      {% endif %}
+      {% if COPYRIGHT %}
+      <p>&copy {{ COPYRIGHT }}</p>
+      {% endif %}
+    </div>
+  </aside>
+  <script>
+    var navigation = responsiveNav("#nav", {
+      label: '<i class=\"icon-align-justify icon-reorder\"></i>'
+    });
+  </script>
+</body>
+</html>
